@@ -1,0 +1,11 @@
+spring:
+  profiles:
+    active: secret
+  application:
+    name: backend
+  datasource:
+    url: jdbc:postgresql://${DB_HOST}:5432/eduagent
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+ai:
+  gemini: ${GEMINI_API_KEY}
