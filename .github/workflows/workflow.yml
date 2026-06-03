@@ -28,7 +28,9 @@ jobs:
         with:
           distribution: "temurin"
           java-version: "17"
-      - name: Build gradel
+      - working-directory: ./backend
+        run: chmod +x gradlew
+      - name: Build grade
         run: ./gradlew test
         env:
           GEMINI_API_KEY: ${{secrets.GEMINI_API_KEY}}
