@@ -9,7 +9,7 @@ services:
     ports:
       - "5432:5432"
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U tuananh -d eduagent_database"]
+      test: ["CMD-SHELL", "pg_isready -U test -d eduagent"]
       interval: 5s
       timeout: 5s
       retries: 5
