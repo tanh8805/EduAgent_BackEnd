@@ -5,9 +5,9 @@ on:
       - main
     paths:
       - "src/**"
-      - ".github/workflows/deploy.yml"
-      - "./docker-compose.yml"
-      - "./init.sql"
+      - ".github/workflows/workflow.yml"
+      - "docker-compose.yml"
+      - "init.sql"
   workflow_dispatch:
 
 jobs:
