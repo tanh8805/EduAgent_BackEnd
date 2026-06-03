@@ -4,7 +4,7 @@ on:
     branches:
       - main
     paths:
-      - "src/**"
+      - "backend/src/**"
       - ".github/workflows/workflow.yml"
       - "docker-compose.yml"
       - "init.sql"
