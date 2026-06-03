@@ -8,5 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class AIResponseDTO {
+    private Integer sessionId;
     private String result;
 }

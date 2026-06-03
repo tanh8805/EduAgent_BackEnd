@@ -38,4 +38,3 @@ out/
 
 application-secret.yaml
 init.sql
-./docker-compose.yml
