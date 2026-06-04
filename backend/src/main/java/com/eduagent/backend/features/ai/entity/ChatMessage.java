@@ -17,8 +17,9 @@ public class ChatMessage {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
-  @Column(name = "session_id", nullable = false)
-  private Integer sessionId;
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "session_id", nullable = false)
+  private ChatSession chatSession;
 
   @Column(name = "sender", nullable = false, length = 50)
   private String sender; // 'USER' hoặc 'AI'

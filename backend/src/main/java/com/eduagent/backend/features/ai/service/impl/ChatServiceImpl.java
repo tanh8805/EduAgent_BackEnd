@@ -2,6 +2,7 @@ package com.eduagent.backend.features.ai.service.impl;
 
 import com.eduagent.backend.features.ai.dto.MessageDTO;
 import com.eduagent.backend.features.ai.entity.ChatMessage;
+import com.eduagent.backend.features.ai.entity.ChatSession;
 import com.eduagent.backend.features.ai.repository.ChatMessageRepository;
 import com.eduagent.backend.features.ai.service.ChatService;
 import lombok.RequiredArgsConstructor;
@@ -20,7 +21,7 @@ public class ChatServiceImpl implements ChatService {
   @Override
   public ChatMessage saveMessage(Integer sessionId, String sender, String text) {
     ChatMessage message = ChatMessage.builder()
-            .sessionId(sessionId)
+            .chatSession(ChatSession.builder().id(sessionId).build())
             .sender(sender)
             .messageText(text)
             .build();
