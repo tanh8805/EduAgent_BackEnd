@@ -17,10 +17,11 @@ jobs:
       - name: Checkout Source
         uses: actions/checkout@v4
 
+      # SỬA TẠI ĐÂY: Chỉ khởi động dịch vụ postgres, bỏ qua backend và ai-service trên GHCR
       - name: Start postgres clean
         run: |
           docker compose down -v
-          docker compose up -d 
+          docker compose up -d postgres
 
       - name: Wait for postgres to be healthy
         run: |
