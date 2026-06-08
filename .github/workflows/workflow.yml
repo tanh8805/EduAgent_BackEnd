@@ -16,6 +16,7 @@ jobs:
     steps:
       - name: Checkout Source
         uses: actions/checkout@v4
+
       - name: Start postgres clean
         run: |
           docker compose down -v
@@ -23,7 +24,6 @@ jobs:
 
       - name: Wait for postgres to be healthy
         run: |
-          echo "Waiting for PostgreSQL to be ready..."
           until [ "$(docker inspect --format='{{.State.Health.Status}}' eduagent_database)" == "healthy" ]; do
             sleep 1
           done
@@ -38,7 +38,7 @@ jobs:
       - working-directory: ./backend
         run: chmod +x gradlew
 
-      - name: Build grade
+      - name: Build gradle
         working-directory: ./backend
         run: ./gradlew test
         env:
@@ -46,3 +46,43 @@ jobs:
           DB_HOST: localhost
           DB_USERNAME: test
           DB_PASSWORD: 123456
+
+  build-and-push:
+    needs: test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout Source
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: "17"
+          cache: "gradle"
+
+      - name: Build Jar File
+        working-directory: ./backend
+        run: |
+          chmod +x gradlew
+          ./gradlew bootJar -x test
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./backend
+          file: ./backend/Dockerfile
+          push: true
+          tags: |
+            ghcr.io/${{ github.repository_owner }}/eduagentbackend:latest
+            ghcr.io/${{ github.repository_owner }}/eduagentbackend:${{ github.run_number }}

@@ -9,3 +9,5 @@ spring:
     password: ${DB_PASSWORD}
 ai:
   gemini: ${GEMINI_API_KEY}
+fastapi:
+  uri: http://localhost:8000
