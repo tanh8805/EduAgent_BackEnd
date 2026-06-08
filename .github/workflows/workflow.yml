@@ -8,6 +8,7 @@ on:
       - ".github/workflows/workflow.yml"
       - "docker-compose.yml"
       - "init.sql"
+      - "Dockerfile"
   workflow_dispatch:
 
 jobs:
