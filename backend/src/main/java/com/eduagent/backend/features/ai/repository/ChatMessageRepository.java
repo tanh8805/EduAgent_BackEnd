@@ -12,6 +12,6 @@ import java.util.List;
 @Repository
 public interface ChatMessageRepository extends JpaRepository<ChatMessage, Integer> {
 
-  @Query("SELECT m FROM ChatMessage m WHERE m.sessionId = :sessionId ORDER BY m.id DESC")
+  @Query("SELECT m FROM ChatMessage m WHERE m.chatSession.id = :sessionId ORDER BY m.id DESC")
   List<ChatMessage> findRecentMessages(@Param("sessionId") Integer sessionId, Pageable pageable);
 }
